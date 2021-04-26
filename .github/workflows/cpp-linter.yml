@@ -3,10 +3,10 @@ name: cpp-linter
 on: [pull_request]
 jobs:
   c-linter:
-    name: c-linter
+    name: cpp-linter
     runs-on: ubuntu-latest
     steps:
-      - name: c-linter
+      - name: cpp-linter
         uses: shenxianpeng/cpp-linter-action@master
     env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
