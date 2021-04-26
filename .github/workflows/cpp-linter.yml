@@ -1,4 +1,4 @@
-name: c-linter
+name: cpp-linter
 
 on: [pull_request]
 jobs:
