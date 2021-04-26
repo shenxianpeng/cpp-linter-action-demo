@@ -2,7 +2,7 @@ name: cpp-linter
 
 on: [pull_request]
 jobs:
-  c-linter:
+  cpp-linter:
     name: cpp-linter
     runs-on: ubuntu-latest
     steps:
