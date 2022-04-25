@@ -10,6 +10,7 @@ class Dummy {
         useless = str;
         return 0;
     }
+    
 };
 
 
