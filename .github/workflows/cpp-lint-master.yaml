@@ -1,4 +1,4 @@
-name: cpp-linter-master
+name: cpp-linter
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
           # to ignore all demo folder contents except for demo.cpp
           # ignore: demo|!demo/demo.cpp
           # thread-comments don't work on private repos.
-          thread-comments: false
+          thread-comments: true
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
