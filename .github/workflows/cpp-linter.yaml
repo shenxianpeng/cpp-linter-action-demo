@@ -1,10 +1,9 @@
 name: cpp-linter
 
 on:
-  push:
-    paths-ignore: "docs/**"
   pull_request:
-    paths-ignore: "docs/**"
+    types: [opened, reopened]  # let PR-synchronize events be handled by push events
+  push:
   workflow_dispatch:
 
 
