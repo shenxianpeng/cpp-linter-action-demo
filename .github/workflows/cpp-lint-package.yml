@@ -1,0 +1,54 @@
+name: cpp-linter as pkg
+
+on:
+  push:
+    paths-ignore: "docs/**"
+  pull_request:
+    paths-ignore: "docs/**"
+
+jobs:
+  cpp-linter:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        clang-version: ['9','10', '11', '12', '13', '14']
+        repo: ['shenxianpeng/cpp-linter-action']
+        branch: ['master']
+      fail-fast: false
+
+    steps:
+
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - name: Install clang-tools
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: ${{ matrix.clang-version }}
+          directory: ${{ runner.temp }}/llvm
+
+      - name: Install linter package
+        run: python3 -m pip install git+https://github.com/${{ matrix.repo }}/@${{ matrix.branch }}
+
+      - name: Cache the build artifacts
+        id: cache-build
+        uses: actions/cache@v3
+        with:
+          path: build
+          key: ${{ hashFiles('src/CMakeLists.txt', 'src/demo.cpp', 'src/demo.hpp') }}
+
+      - name: Generate  compiler database
+        if: steps.cache-build.outputs.cache-hit != 'true'
+        run: mkdir build && cmake -Bbuild src
+
+      - name: run linter as package
+        id: linter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cpp-linter -s=file -v=9 -i=build -p=build -V=${{ runner.temp }}/llvm --thread-comments=${{ matrix.clang-version == '12' }} -a=${{ matrix.clang-version == '12' }}
+
+      - name: Fail fast?!
+        if: steps.linter.outputs.checks-failed > 0
+        run: echo "Some files failed the linting checks!"
+        # for actual deployment
+        # run: exit 1

@@ -1,0 +1,52 @@
+name: cpp-linter as action
+
+on:
+  push:
+    paths-ignore: "docs/**"
+  pull_request:
+    paths-ignore: "docs/**"
+
+
+jobs:
+  cpp-linter:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        clang-version: ['9','10', '11', '12', '13', '14']
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache the build artifacts
+        id: cache-build
+        uses: actions/cache@v3
+        with:
+          path: build
+          key: ${{ hashFiles('src/CMakeLists.txt', 'src/demo.cpp', 'src/demo.hpp') }}
+
+      - name: Generate compilation database
+        if: steps.cache-build.outputs.cache-hit != 'true'
+        run: mkdir build && cmake -Bbuild src
+
+      - name: run linter as action
+        uses: shenxianpeng/cpp-linter-action@master
+        id: linter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          style: file
+          files-changed-only: ${{ matrix.clang-version == '12' }}
+          # to ignore all build folder contents
+          ignore: build
+          database: build
+          verbosity: 9
+          version: ${{ matrix.clang-version }}
+          file-annotations: ${{ matrix.clang-version == '12' }}
+
+      - name: Fail fast?!
+        if: steps.linter.outputs.checks-failed > 0
+        run: echo "some linter checks failed"
+        # for actual deployment
+        # run: exit 1
