@@ -1,18 +1,22 @@
-name: cpp-linter
+name: test-cpp-linter
 
 on:
   pull_request:
     types: [opened, reopened]  # let PR-synchronize events be handled by push events
   push:
   workflow_dispatch:
-
+    inputs:
+      branch_name:
+        description: 'The test branch name of cpp-linter-action'
+        required: true
+        default: 'master'
 
 jobs:
   cpp-linter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: shenxianpeng/cpp-linter-action@master
+      - uses: cpp-linter/cpp-linter-action@${{ github.event.inputs.branch_name }}
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
