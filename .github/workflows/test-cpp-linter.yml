@@ -6,7 +6,7 @@ on:
   push:
   workflow_dispatch:
     inputs:
-      branch_name:
+      test_branch_name:
         description: 'The test branch name of cpp-linter-action'
         required: true
         default: 'master'
@@ -14,9 +14,11 @@ on:
 jobs:
   cpp-linter:
     runs-on: ubuntu-latest
+    env: 
+      TEST_BRANCH_NAME: ${{ github.event.inputs.test_branch_name }}
     steps:
       - uses: actions/checkout@v2
-      - uses: cpp-linter/cpp-linter-action@${{ github.event.inputs.branch_name }}
+      - uses: cpp-linter/cpp-linter-action@${{ env.TEST_BRANCH_NAME }}
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
