@@ -28,7 +28,7 @@ jobs:
         run: mkdir build && cmake -Bbuild src
 
       - name: run linter as action
-        uses: cpp-linter/cpp-linter-action@latest
+        uses: cpp-linter/cpp-linter-action@backlogged-updates
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
