@@ -9,7 +9,7 @@ class Dummy {
     public:
     void *not_usefull(char *str){
         useless = str;
-        return 0;
+        return nullptr;
     }
 };
 
@@ -37,5 +37,4 @@ class Dummy {
 struct LongDiff
 {
     long diff;
-
 };
