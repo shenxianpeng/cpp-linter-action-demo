@@ -18,16 +18,19 @@ jobs:
         with:
           submodules: true
 
-      - name: Cache the build artifacts
-        id: cache-build
-        uses: actions/cache@v3
-        with:
-          path: build
-          key: ${{ hashFiles('src/CMakeLists.txt', 'src/demo.cpp', 'src/demo.hpp') }}
+      # - name: Cache the build artifacts
+      #   id: cache-build
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: build
+      #     key: ${{ hashFiles('src/CMakeLists.txt', 'src/demo.cpp', 'src/demo.hpp') }}
 
-      - name: Generate compilation database
-        if: steps.cache-build.outputs.cache-hit != 'true'
-        run: mkdir build && cmake -Bbuild src
+      # - name: Generate compilation database
+      #   if: steps.cache-build.outputs.cache-hit != 'true'
+      #   run: mkdir build && cmake -Bbuild src
+      
+      # - name: Move database to src folder
+      #   run: mv build/compile_commands.json src/
 
       - name: run linter as action
         uses: cpp-linter/cpp-linter-action@backlogged-updates
@@ -39,7 +42,7 @@ jobs:
           files-changed-only: ${{ matrix.clang-version == '12' }}
           # to ignore all build folder contents
           ignore: build
-          database: build
+          # database: build
           verbosity: 9
           version: ${{ matrix.clang-version }}
           file-annotations: ${{ matrix.clang-version == '12' }}
