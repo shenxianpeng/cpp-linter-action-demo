@@ -28,7 +28,9 @@ jobs:
 
       - name: Install linter package
         run: python3 -m pip install git+https://github.com/${{ matrix.repo }}/@${{ matrix.branch }}
-
+      
+      - uses: seanmiddleditch/gha-setup-vsdevenv@v4
+      
       - name: Cache the build artifacts
         id: cache-build
         uses: actions/cache@v3
