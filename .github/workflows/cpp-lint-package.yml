@@ -11,12 +11,14 @@ jobs:
       matrix:
         clang-version: ['9','10', '11', '12', '13', '14']
         repo: ['cpp-linter/cpp-linter-action']
-        branch: ['latest']
+        branch: ['backlogged-updates']
       fail-fast: false
 
     steps:
 
       - uses: actions/checkout@v3
+        with:
+          submodules: true
       - uses: actions/setup-python@v3
       - name: Install clang-tools
         uses: KyleMayes/install-llvm-action@v1
