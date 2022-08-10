@@ -38,7 +38,7 @@ jobs:
 
       - name: Generate  compiler database
         if: steps.cache-build.outputs.cache-hit != 'true'
-        run: mkdir build && cmake -Bbuild src
+        run: mkdir build && cmake -Bbuild src -G "NMake Makefiles"
 
       - name: run linter as package
         id: linter
