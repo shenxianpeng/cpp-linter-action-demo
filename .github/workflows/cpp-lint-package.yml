@@ -5,7 +5,7 @@ on:
     inputs:
       branch:
         description: 'which branch to test'
-        default: 'main'
+        default: 'issue-24'
         required: true
 
 jobs:
@@ -63,6 +63,7 @@ jobs:
           -f=false 
           --extra-arg="-std=c++14 -Wall" 
           --thread-comments=${{ matrix.clang-version == '12' }} 
+          --step-summary=${{ matrix.clang-version == '12' }}
           -a=${{ matrix.clang-version == '12' }}
 
       - name: Fail fast?!
