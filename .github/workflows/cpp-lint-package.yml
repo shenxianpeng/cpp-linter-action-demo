@@ -1,11 +1,12 @@
 name: cpp-linter as pkg
 
 on:
+  pull_request:
   workflow_dispatch:
     inputs:
       branch:
         description: 'which branch to test'
-        default: 'issue-24'
+        default: 'main'
         required: true
 
 jobs:
@@ -16,7 +17,8 @@ jobs:
       matrix:
         clang-version: ['7', '8', '9','10', '11', '12', '13', '14']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['${{ inputs.branch }}']
+        # branch: ['${{ inputs.branch }}']
+        branch: ['issue-24']
       fail-fast: false
 
     steps:
