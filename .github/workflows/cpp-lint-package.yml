@@ -57,6 +57,8 @@ jobs:
           with open(os.environ["GITHUB_OUTPUT"], 'a') as gh_out:
               if ${{ matrix.clang-version }} == 12:
                   gh_out.write('thread-comment=update\n')
+              elif ${{ matrix.clang-version }} == 13:
+                  gh_out.write('thread-comment=true\n')
               else:
                   gh_out.write('thread-comment=false\n')
       - name: Run linter as package
