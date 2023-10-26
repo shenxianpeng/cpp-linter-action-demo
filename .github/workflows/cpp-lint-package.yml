@@ -1,12 +1,13 @@
 name: cpp-linter as pkg
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'which branch to test'
-        default: 'main'
-        required: true
+  # workflow_dispatch:
+  #   inputs:
+  #     branch:
+  #       description: 'which branch to test'
+  #       default: 'main'
+  #       required: true
+  push:
 
 jobs:
   cpp-linter:
@@ -16,7 +17,7 @@ jobs:
       matrix:
         clang-version: ['7', '8', '9','10', '11', '12', '13', '14']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['${{ inputs.branch }}']
+        branch: ['resolve-34']  # ['${{ inputs.branch }}']
       fail-fast: false
 
     steps:
@@ -49,18 +50,6 @@ jobs:
         if: steps.cache-build.outputs.cache-hit != 'true'
         run: mkdir build && cmake -Bbuild src -G "NMake Makefiles"
 
-      - name: Update comments?
-        id: linter-thread-comments
-        shell: python
-        run: |
-          import os
-          with open(os.environ["GITHUB_OUTPUT"], 'a') as gh_out:
-              if ${{ matrix.clang-version }} == 12:
-                  gh_out.write('thread-comment=update\n')
-              elif ${{ matrix.clang-version }} == 13:
-                  gh_out.write('thread-comment=true\n')
-              else:
-                  gh_out.write('thread-comment=false\n')
       - name: Run linter as package
         id: linter
         env:
@@ -74,7 +63,7 @@ jobs:
           -V=${{ runner.temp }}/llvm 
           -f=false 
           --extra-arg="-std=c++14 -Wall" 
-          --thread-comments=${{ steps.linter-thread-comments.outputs.thread-comment }} 
+          --thread-comments=update
           -a=${{ matrix.clang-version == '12' }}
           --no-lgtm=false
 
