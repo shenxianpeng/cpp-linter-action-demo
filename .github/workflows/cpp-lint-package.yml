@@ -7,7 +7,7 @@ on:
   #       description: 'which branch to test'
   #       default: 'main'
   #       required: true
-  push:
+  pull_request:
 
 jobs:
   cpp-linter:
