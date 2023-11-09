@@ -61,9 +61,9 @@ jobs:
           -i=build 
           -p=build 
           -V=${{ runner.temp }}/llvm 
-          -f=true
+          -f=false
           --extra-arg="-std=c++14 -Wall" 
-          --thread-comments=update
+          --thread-comments=${{ matrix.clang-version == '12' }}
           -a=${{ matrix.clang-version == '12' }}
           --no-lgtm=true
 
