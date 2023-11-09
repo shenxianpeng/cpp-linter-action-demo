@@ -65,7 +65,7 @@ jobs:
           --extra-arg="-std=c++14 -Wall" 
           --thread-comments=${{ matrix.clang-version == '12' && 'update' || 'false' }}
           -a=${{ matrix.clang-version == '12' }}
-          --no-lgtm=true
+          --no-lgtm=false
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
