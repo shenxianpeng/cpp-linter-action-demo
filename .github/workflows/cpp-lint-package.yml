@@ -1,13 +1,12 @@
 name: cpp-linter as pkg
 
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #     branch:
-  #       description: 'which branch to test'
-  #       default: 'main'
-  #       required: true
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'which branch to test'
+        default: 'main'
+        required: true
 
 jobs:
   cpp-linter:

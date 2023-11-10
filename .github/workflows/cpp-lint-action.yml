@@ -3,6 +3,7 @@ name: cpp-linter as action
 on:
   workflow_dispatch:
   workflow_call:
+  pull_request:
 
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
         run: mkdir build && cmake -Bbuild src
 
       - name: Run linter as action
-        uses: cpp-linter/cpp-linter-action@latest
+        uses: cpp-linter/cpp-linter-action@dependabot/pip/cpp-linter-1.6.1
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,7 +44,7 @@ jobs:
           database: build
           verbosity: 9
           version: ${{ matrix.clang-version }}
-          thread-comments: ${{ matrix.clang-version == '12' }}
+          thread-comments: ${{ matrix.clang-version == '12' && 'true' || 'false' }}
           file-annotations: ${{ matrix.clang-version == '12' }}
           extra-args: -std=c++14 -Wall
 
