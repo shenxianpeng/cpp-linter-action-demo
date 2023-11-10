@@ -38,13 +38,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          files-changed-only: true
+          files-changed-only: false
           # to ignore all build folder contents
           ignore: build
           database: build
           verbosity: 9
           version: ${{ matrix.clang-version }}
-          thread-comments: ${{ matrix.os == 'ubuntu-latest' && matrix.clang-version == '12' && 'update' || 'false' }}
+          thread-comments: ${{ matrix.os == 'ubuntu-latest' && matrix.clang-version == '12' && 'update' }}
           file-annotations: ${{ matrix.clang-version == '12' }}
           extra-args: -std=c++14 -Wall
           no-lgtm: false
