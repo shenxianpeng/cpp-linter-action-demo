@@ -47,7 +47,7 @@ jobs:
           thread-comments: ${{ matrix.os == 'ubuntu-latest' && matrix.clang-version == '12' && 'update' }}
           file-annotations: ${{ matrix.clang-version == '12' }}
           extra-args: -std=c++14 -Wall
-          no-lgtm: false
+          no-lgtm: true
 
       - name: Fail fast?!
         # if: steps.linter.outputs.checks-failed > 0
