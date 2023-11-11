@@ -38,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          files-changed-only: false
+          files-changed-only: true
           # to ignore all build folder contents
           ignore: build
           database: build
@@ -47,7 +47,7 @@ jobs:
           thread-comments: ${{ matrix.os == 'ubuntu-latest' && matrix.clang-version == '12' && 'update' }}
           file-annotations: ${{ matrix.clang-version == '12' }}
           extra-args: -std=c++14 -Wall
-          no-lgtm: true
+          no-lgtm: false
 
       - name: Fail fast?!
         # if: steps.linter.outputs.checks-failed > 0
