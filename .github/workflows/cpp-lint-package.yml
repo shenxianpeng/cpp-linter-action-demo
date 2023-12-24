@@ -36,7 +36,9 @@ jobs:
         run: clang-tools --install ${{ matrix.clang-version }} --directory ${{ runner.temp }}/llvm
 
       - name: Setup VS dev env
-        uses: seanmiddleditch/gha-setup-vsdevenv@v4
+        uses: TheMrMilchmann/setup-msvc-dev@v3
+        with:
+          arch: x64
 
       - name: Cache the build artifacts
         id: cache-build
