@@ -64,7 +64,8 @@ jobs:
           -p=build 
           -V=${{ runner.temp }}/llvm 
           --extra-arg="-std=c++14 -Wall" 
-          --file-annotations=${{ matrix.clang-version == '16' }} 
+          --file-annotations=false
+          --lines-changed-only=true
           --thread-comments=${{ matrix.clang-version == '16' }} 
           --tidy-review=${{ matrix.clang-version == '16' }}
           --format-review=${{ matrix.clang-version == '16' }}
