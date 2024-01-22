@@ -42,7 +42,7 @@ jobs:
 
       - name: Cache the build artifacts
         id: cache-build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: build
           key: ${{ hashFiles('src/CMakeLists.txt', 'src/demo.cpp', 'src/demo.hpp') }}
