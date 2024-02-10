@@ -17,7 +17,7 @@ jobs:
       matrix:
         clang-version: ['10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['pr-review-suggestions']
+        branch: ['main']
       fail-fast: false
 
     steps:
@@ -65,11 +65,11 @@ jobs:
           -V=${{ runner.temp }}/llvm 
           --extra-arg="-std=c++14 -Wall" 
           --file-annotations=false
-          --lines-changed-only=false
+          --lines-changed-only=true
           --extension=h,c
           --thread-comments=${{ matrix.clang-version == '16' }} 
           --tidy-review=${{ matrix.clang-version == '16' }}
-          --format-review=${{ matrix.clang-version == '16' }}
+        # --format-review=${{ matrix.clang-version == '16' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
