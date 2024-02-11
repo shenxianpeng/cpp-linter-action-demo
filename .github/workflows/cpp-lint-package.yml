@@ -17,7 +17,7 @@ jobs:
       matrix:
         clang-version: ['10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['main']
+        branch: ['pr-review-summary-only']
       fail-fast: false
 
     steps:
@@ -56,6 +56,7 @@ jobs:
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CPP_LINTER_PR_SUMMARY_ONLY: true
         run: >
           cpp-linter 
           -s=file 
@@ -68,7 +69,7 @@ jobs:
           --lines-changed-only=true
           --thread-comments=${{ matrix.clang-version == '16' }} 
           --tidy-review=${{ matrix.clang-version == '16' }}
-        # --format-review=${{ matrix.clang-version == '16' }}
+          --format-review=${{ matrix.clang-version == '16' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
