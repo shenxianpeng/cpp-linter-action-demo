@@ -67,8 +67,8 @@ jobs:
           --file-annotations=false
           --lines-changed-only=true
           --thread-comments=${{ matrix.clang-version == '16' }} 
-          --tidy-review=${{ matrix.clang-version == '16' }}
-        # --format-review=${{ matrix.clang-version == '16' }}
+          --format-review=${{ matrix.clang-version == '16' }}
+        # --tidy-review=${{ matrix.clang-version == '16' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
