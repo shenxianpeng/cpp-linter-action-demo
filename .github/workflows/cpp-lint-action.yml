@@ -3,6 +3,7 @@ name: cpp-linter as action
 on:
   workflow_dispatch:
   workflow_call:
+  pull_request:
 
 
 jobs:
@@ -32,27 +33,29 @@ jobs:
         run: mkdir build && cmake -Bbuild src
 
       - name: Run linter as action
-        uses: cpp-linter/cpp-linter-action@latest
+        uses: cpp-linter/cpp-linter-action@dependabot/pip/cpp-linter-1.7.0
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           style: file
-          files-changed-only: false
+          files-changed-only: true
+          lines-changed-only: true
           # to ignore all build folder contents
           ignore: build
           database: build
-          verbosity: 9
+          verbosity: debug
           version: ${{ matrix.clang-version }}
-          thread-comments: ${{ matrix.clang-version == '12' }}
-          file-annotations: ${{ matrix.clang-version == '12' }}
+          thread-comments: ${{ matrix.clang-version == '16' }}
+          file-annotations: ${{ matrix.clang-version == '16' }}
           extra-args: -std=c++14 -Wall
+          tidy-review: ${{ matrix.clang-version == '16' }}
+          format-review: ${{ matrix.clang-version == '16' }}
 
       - name: Fail fast?!
         # if: steps.linter.outputs.checks-failed > 0
         run: | 
           echo "some linter checks failed"
           echo "${{ steps.linter.outputs.checks-failed }}"
-          echo "${{ env.checks-failed }}"
         # for actual deployment
         # run: exit 1
