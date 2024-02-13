@@ -3,7 +3,7 @@ name: cpp-linter as action
 on:
   workflow_dispatch:
   workflow_call:
-  pull_request:
+  # pull_request:
 
 
 jobs:
@@ -44,13 +44,13 @@ jobs:
           # to ignore all build folder contents
           ignore: build
           database: build
-          verbosity: debug
+          # verbosity: debug
           version: ${{ matrix.clang-version }}
           thread-comments: ${{ matrix.clang-version == '16' }}
           file-annotations: ${{ matrix.clang-version == '16' }}
           extra-args: -std=c++14 -Wall
           tidy-review: ${{ matrix.clang-version == '16' }}
-          format-review: ${{ matrix.clang-version == '16' }}
+          # format-review: ${{ matrix.clang-version == '16' }}
 
       - name: Fail fast?!
         # if: steps.linter.outputs.checks-failed > 0

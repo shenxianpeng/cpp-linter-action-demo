@@ -7,6 +7,7 @@ on:
         description: 'which branch to test'
         default: 'main'
         required: true
+  pull_request:
 
 jobs:
   cpp-linter:
@@ -14,9 +15,9 @@ jobs:
 
     strategy:
       matrix:
-        clang-version: ['7', '8', '9','10', '11', '12', '13', '14', '15', '16', '17']
+        clang-version: ['10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['${{ inputs.branch }}']
+        branch: ['address-75'] # ['${{ inputs.branch }}']
       fail-fast: false
 
     steps:
@@ -42,7 +43,7 @@ jobs:
 
       - name: Cache the build artifacts
         id: cache-build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: build
           key: ${{ hashFiles('src/CMakeLists.txt', 'src/demo.cpp', 'src/demo.hpp') }}
@@ -62,10 +63,11 @@ jobs:
           -i=build 
           -p=build 
           -V=${{ runner.temp }}/llvm 
-          -f=false 
+          --files-changed-only=true
+          --lines-changed-only=true
           --extra-arg="-std=c++14 -Wall" 
-          --thread-comments=${{ matrix.clang-version == '12' }} 
-          -a=${{ matrix.clang-version == '12' }}
+          --thread-comments=${{ matrix.clang-version == '16' }} 
+          -a=${{ matrix.clang-version == '16' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
