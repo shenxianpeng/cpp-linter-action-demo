@@ -66,7 +66,7 @@ jobs:
           --files-changed-only=true
           --lines-changed-only=false
           --extra-arg="-std=c++14 -Wall"
-          --thread-comments=${{ matrix.clang-version == '16' }}
+          --thread-comments=${{ matrix.clang-version == '16' && 'update' }}
           --file-annotations=${{ matrix.clang-version == '16' }}
           --tidy-review=${{ matrix.clang-version == '16' }}
 
