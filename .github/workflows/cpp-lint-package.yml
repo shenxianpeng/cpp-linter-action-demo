@@ -8,6 +8,7 @@ on:
         default: 'main'
         required: true
   pull_request:
+  push:
 
 jobs:
   cpp-linter:
