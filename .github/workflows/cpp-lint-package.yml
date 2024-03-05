@@ -58,11 +58,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >
           cpp-linter
-          -s=file
-          -v=9
-          -i=build
-          -p=build
-          -V=${{ runner.temp }}/llvm
+          --style=file
+          --verbosity=debug
+          --ignore=build
+          --database=build
+          --version=${{ runner.temp }}/llvm
           --files-changed-only=true
           --lines-changed-only=false
           --extra-arg="-std=c++14 -Wall"
