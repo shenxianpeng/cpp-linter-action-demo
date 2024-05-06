@@ -7,6 +7,7 @@ on:
         description: 'which branch to test'
         default: 'main'
         required: true
+  push:
 
 jobs:
   cpp-linter:
@@ -16,7 +17,7 @@ jobs:
       matrix:
         clang-version: ['7', '8', '9','10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['${{ inputs.branch }}']
+        branch: ['glob-ignores']  # ['${{ inputs.branch }}']
       fail-fast: false
 
     steps:
