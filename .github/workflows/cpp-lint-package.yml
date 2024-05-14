@@ -17,7 +17,7 @@ jobs:
       matrix:
         clang-version: ['7', '8', '9','10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['glob-ignores']  # ['${{ inputs.branch }}']
+        branch: ['main']  # ['${{ inputs.branch }}']
       fail-fast: false
 
     steps:
