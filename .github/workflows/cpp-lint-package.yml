@@ -68,7 +68,7 @@ jobs:
           --thread-comments=${{ matrix.clang-version == '12' }} 
           -a=${{ matrix.clang-version == '12' }}
           --passive-reviews=true
-          --format-review=true
+          --format-review=${{ matrix.clang-version == '15' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
