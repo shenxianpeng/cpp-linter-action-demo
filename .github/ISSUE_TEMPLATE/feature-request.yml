@@ -4,10 +4,11 @@ description: Suggest an idea for this project
 body:
   - type: input
     id: existing-feature
-    label: Is your idea related to an existing feature?
-    description: >-
-      If this idea is related to an already available feature(s), then please list them here.
-    placeholder: 'Example: lines-changed-only, thread-comments, ...'
+    attributes:
+      label: Is your idea related to an existing feature?
+      description: >-
+        If this idea is related to an already available feature(s), then please list them here.
+      placeholder: 'Example: lines-changed-only, thread-comments, ...'
 
   - type: textarea
     id: behavior
