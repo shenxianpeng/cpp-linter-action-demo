@@ -2,13 +2,31 @@
 name: Feature request
 description: Suggest an idea for this project
 body:
-  - type: input
+  - type: dropdown
     id: existing-feature
     attributes:
       label: Is your idea related to an existing feature?
       description: >-
         If this idea is related to an already available feature(s), then please list them here.
-      placeholder: 'Example: lines-changed-only, thread-comments, ...'
+      multiple: true
+      options:
+        - version
+        - thread-comments
+        - lines-changed-only
+        - ignore
+        - tidy-ignore
+        - format-ignore
+        - files-changed-only
+        - file-annotations
+        - step-summary
+        - no-lgtm
+        - tidy-review
+        - format-review
+        - passive-reviews
+        - verbosity
+        - 'outputs: checks-failed'
+        - 'outputs: clang-tidy-checks-failed'
+        - 'outputs: clang-format-checks-failed'
 
   - type: textarea
     id: behavior
