@@ -18,6 +18,8 @@ body:
           branches: [main, master, develop]
           paths: ['**.c', '**.cpp', '**.h', '**.hpp', '**.cxx', '**.hxx', '**.cc', '**.hh', '**CMakeLists.txt', 'meson.build', '**.cmake']
       render: yml
+    validations:
+      required: true
 
   - type: textarea
     id: runner-os
@@ -31,6 +33,8 @@ body:
         runs-on: ubuntu-latest
         container: node:18
       render: yml
+    validations:
+      required: true
 
   - type: textarea
     id: cpp-linter-config
@@ -47,6 +51,8 @@ body:
             style: 'file'
             tidy-checks: ''
       render: yml
+    validations:
+      required: true
 
   - type: textarea
     id: what-happened
@@ -57,3 +63,5 @@ body:
         Please be clear and concise as possible. Use screenshots if that would help. Most users
         use this to paste the workflow logs.
       placeholder: You can use markdown syntax here
+    validations:
+      required: true

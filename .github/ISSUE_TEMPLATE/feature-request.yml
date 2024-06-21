@@ -12,6 +12,8 @@ body:
       options:
         - version
         - thread-comments
+        - tidy-checks
+        - style
         - lines-changed-only
         - ignore
         - tidy-ignore
@@ -24,9 +26,9 @@ body:
         - format-review
         - passive-reviews
         - verbosity
-        - 'outputs: checks-failed'
-        - 'outputs: clang-tidy-checks-failed'
-        - 'outputs: clang-format-checks-failed'
+        - 'output: checks-failed'
+        - 'output: clang-tidy-checks-failed'
+        - 'output: clang-format-checks-failed'
 
   - type: textarea
     id: behavior
@@ -36,6 +38,8 @@ body:
         Use this area to describe what behavior you desire.
         Please be clear and concise as possible. Use screenshots if that would help.
       placeholder: You can use markdown syntax here
+    validations:
+      required: true
 
   - type: textarea
     id: alternative
