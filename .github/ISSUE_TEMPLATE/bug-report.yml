@@ -2,9 +2,9 @@ name: Report a problem
 description: Create a report to let us help you
 body:
   - type: textarea
+    id: ci-triggers
     attributes:
       label: What events trigger your workflow?
-      id: ci-triggers
       description: >-
         Please copy and paste the workflow triggers.
         If you are using a resuable workflow (`workflow_dispatch` event),
