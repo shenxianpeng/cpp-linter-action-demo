@@ -8,10 +8,8 @@ size_t dummyFunc(size_t i) { return i; }
 
 int main()
 {
-    for (;;)
-        break;
+    for (;;) break;
 
-    printf("Hello world!\n");
+    printf( "Hello world!\n");
 
-    return 0;
-}
+    return 0;}
