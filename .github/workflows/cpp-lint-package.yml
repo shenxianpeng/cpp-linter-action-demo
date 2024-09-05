@@ -65,6 +65,7 @@ jobs:
           -V=${{ runner.temp }}/llvm 
           -f=false 
           --extra-arg="-std=c++14 -Wall" 
+          --lines-changed-only=true
           --thread-comments=${{ matrix.clang-version == '17' && 'update' || 'false' }}
           -a=${{ matrix.clang-version == '17' }}
           --tidy-review=${{ matrix.clang-version == '17' }}
