@@ -7,6 +7,7 @@ on:
         description: 'which branch to test'
         default: 'main'
         required: true
+  pull_request:
 
 jobs:
   cpp-linter:
@@ -16,7 +17,7 @@ jobs:
       matrix:
         clang-version: ['7', '8', '9','10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['${{ inputs.branch }}']
+        branch: ['switch-to-unidiff'] #['${{ inputs.branch }}']
       fail-fast: false
 
     steps:
@@ -64,8 +65,10 @@ jobs:
           -V=${{ runner.temp }}/llvm 
           -f=false 
           --extra-arg="-std=c++14 -Wall" 
-          --thread-comments=${{ matrix.clang-version == '12' }} 
-          -a=${{ matrix.clang-version == '12' }}
+          --thread-comments=${{ matrix.clang-version == '17' && 'update' || 'false' }}
+          -a=${{ matrix.clang-version == '17' }}
+          --tidy-review=${{ matrix.clang-version == '17' }}
+          --format-review=${{ matrix.clang-version == '17' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
