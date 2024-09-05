@@ -69,6 +69,7 @@ jobs:
           -a=${{ matrix.clang-version == '17' }}
           --tidy-review=${{ matrix.clang-version == '17' }}
           --format-review=${{ matrix.clang-version == '17' }}
+        # --lines-changed-only=true
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
