@@ -57,15 +57,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >
           cpp-linter
-           -s=file
-           -v=debug
-           -i=build
-           -p=build
-           -V=${{ runner.temp }}/llvm
-           -f=false
-           --extra-arg="-std=c++14 -Wall"
-           --thread-comments=${{ matrix.clang-version == '17' && 'update' }}
-           -a=${{ matrix.clang-version == '17' }}
+          -s=file
+          -v=debug
+          -i=build
+          -p=build
+          -V=${{ runner.temp }}/llvm
+          -f=false
+          --extra-arg="-std=c++14 -Wall"
+          --thread-comments=${{ matrix.clang-version == '17' && 'update' }}
+          -a=${{ matrix.clang-version == '17' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
