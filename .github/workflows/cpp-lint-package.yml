@@ -34,7 +34,7 @@ jobs:
         # run: python -m pip install clang-tools git+https://github.com/${{ matrix.repo }}/@${{ matrix.branch }}
         run: |
           python -m pip install clang-tools
-          python -m pip install -i https://test.pypi.org/simple/ cpp-linter
+          python -m pip install -i https://test.pypi.org/simple/ cpp-linter==2.0.0rc4
 
       - name: Install clang-tools
         run: clang-tools --install ${{ matrix.clang-version }} --directory ${{ runner.temp }}/llvm
