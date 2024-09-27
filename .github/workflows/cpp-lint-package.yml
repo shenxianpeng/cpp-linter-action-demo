@@ -15,6 +15,7 @@ jobs:
     permissions:
       issues: write
       pull-requests: write
+      contents: write
 
     strategy:
       matrix:
