@@ -12,6 +12,9 @@ on:
 jobs:
   cpp-linter:
     runs-on: windows-latest
+    permissions:
+      issues: write
+      pull-requests: write
 
     strategy:
       matrix:
