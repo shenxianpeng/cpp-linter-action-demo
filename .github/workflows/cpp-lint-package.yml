@@ -70,6 +70,8 @@ jobs:
           --extra-arg="-std=c++14 -Wall"
           --thread-comments=${{ matrix.clang-version == '17' && 'update' }}
           -a=${{ matrix.clang-version == '17' }}
+          --tidy-review=${{ matrix.clang-version == '17' }}
+          --format-review=${{ matrix.clang-version == '17' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
