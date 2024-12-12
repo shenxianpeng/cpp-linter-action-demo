@@ -5,8 +5,9 @@ on:
     inputs:
       branch:
         description: 'which branch to test'
-        default: 'main'
+        default: 'fix-test-coverage'
         required: true
+  pull_request:
 
 jobs:
   cpp-linter:
@@ -16,7 +17,8 @@ jobs:
       matrix:
         clang-version: ['7', '8', '9','10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
-        branch: ['${{ inputs.branch }}']
+        branch:
+          - ${{ github.event_name == 'workflow_dispatch' && inputs.branch || 'fix-test-coverage' }}
       fail-fast: false
 
     steps:
@@ -66,9 +68,14 @@ jobs:
           --extra-arg="-std=c++14 -Wall"
           --thread-comments=${{ matrix.clang-version == '17' && 'update' }}
           -a=${{ matrix.clang-version == '17' }}
+          --tidy-review=${{ matrix.clang-version == '17' }}
+          --format-review=${{ matrix.clang-version == '17' }}
 
       - name: Fail fast?!
         if: steps.linter.outputs.checks-failed > 0
-        run: echo "Some files failed the linting checks!"
+        run: |
+          echo "checks-failed: ${{ steps.linter.outputs.checks-failed }}"
+          echo "clang-tidy-checks-failed: ${{ steps.linter.outputs.clang-tidy-checks-failed }}"
+          echo "clang-format-checks-failed: ${{ steps.linter.outputs.clang-format-checks-failed }}"
         # for actual deployment
         # run: exit 1
