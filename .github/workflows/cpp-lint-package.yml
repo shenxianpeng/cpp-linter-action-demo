@@ -5,7 +5,7 @@ on:
     inputs:
       branch:
         description: 'which branch to test'
-        default: 'fix-test-coverage'
+        default: 'hide-reuse-pr-reviews'
         required: true
   pull_request:
 
@@ -18,7 +18,7 @@ jobs:
         clang-version: ['7', '8', '9','10', '11', '12', '13', '14', '15', '16', '17']
         repo: ['cpp-linter/cpp-linter']
         branch:
-          - ${{ github.event_name == 'workflow_dispatch' && inputs.branch || 'fix-test-coverage' }}
+          - ${{ github.event_name == 'workflow_dispatch' && inputs.branch || 'hide-reuse-pr-reviews' }}
       fail-fast: false
 
     steps:
