@@ -5,17 +5,11 @@
 class Dummy {
     char* useless;
     int numb;
+    Dummy() :numb(0), useless("\0"){}
 
     public:
-    void *not_usefull(char *str){
-        useless = str;
-        return 0;
-    }
+    void *not_useful(char *str){useless = str;}
 };
-
-
-
-
 
 
 
@@ -36,6 +30,7 @@ class Dummy {
 
 struct LongDiff
 {
+
     long diff;
 
 };

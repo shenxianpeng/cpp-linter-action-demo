@@ -32,7 +32,7 @@ jobs:
         run: mkdir build && cmake -Bbuild src
 
       - name: Run linter as action
-        uses: cpp-linter/cpp-linter-action@latest
+        uses: cpp-linter/cpp-linter-action@main
         id: linter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,17 +42,17 @@ jobs:
           # to ignore all build folder contents
           ignore: build
           database: build
-          verbosity: 9
+          verbosity: debug
           version: ${{ matrix.clang-version }}
-          thread-comments: ${{ matrix.clang-version == '12' }}
-          file-annotations: ${{ matrix.clang-version == '12' }}
+          thread-comments: ${{ matrix.clang-version == '16' }}
+          file-annotations: ${{ matrix.clang-version == '16' }}
           extra-args: -std=c++14 -Wall
 
       - name: Fail fast?!
         # if: steps.linter.outputs.checks-failed > 0
         run: | 
-          echo "some linter checks failed"
-          echo "${{ steps.linter.outputs.checks-failed }}"
-          echo "${{ env.checks-failed }}"
+          echo "checks-failed: ${{ steps.linter.outputs.checks-failed }}"
+          echo "clang-tidy-checks-failed: ${{ steps.linter.outputs.clang-tidy-checks-failed }}"
+          echo "clang-format-checks-failed: ${{ steps.linter.outputs.clang-format-checks-failed }}"
         # for actual deployment
         # run: exit 1
